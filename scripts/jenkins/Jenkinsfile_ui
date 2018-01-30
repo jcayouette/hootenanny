@@ -56,8 +56,11 @@ pipeline {
         }
         failure {
             script {
+                // Copy over any UI failure screenshots
+                sh "vagrant scp ${params.Box}:~/hoot/test-files/ui/screenshot_*.png ./test-files/ui/"
                 emailext (
                     subject: "Failure: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                    attachmentsPattern: 'test-files/ui/screenshot_*.png',
                     mimeType: 'text/html',
                     body: """<p>Failure: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
                     <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
@@ -76,11 +79,11 @@ pipeline {
                         subject: "Back to normal: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
                         mimeType: 'text/html',
                         body: """<p>Fixed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-                            <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-                            recipientProviders: [
-                                [$class: 'DevelopersRecipientProvider'],
-                                [$class: 'CulpritsRecipientProvider'],
-                                [$class: 'RequesterRecipientProvider']]
+                        <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+                        recipientProviders: [
+                            [$class: 'DevelopersRecipientProvider'],
+                            [$class: 'CulpritsRecipientProvider'],
+                            [$class: 'RequesterRecipientProvider']]
                     )
                 }
             }
