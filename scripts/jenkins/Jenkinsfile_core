@@ -5,8 +5,6 @@ pipeline {
         booleanParam(name: 'Destroy_VM', defaultValue: true)   
         booleanParam(name: 'License_headers', defaultValue: true)
         booleanParam(name: 'Vagrant_up', defaultValue: true)
-        booleanParam(name: 'Configure_Tests', defaultValue: false)
-        booleanParam(name: 'Build', defaultValue: true)
         booleanParam(name: 'Core_tests', defaultValue: true)
         booleanParam(name: 'Services_tests', defaultValue: true)
         string(name: 'Box', defaultValue: 'hoot_centos7_prov', description: 'Vagrant Box')
