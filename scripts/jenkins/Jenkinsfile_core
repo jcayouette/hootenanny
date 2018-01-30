@@ -37,14 +37,20 @@ pipeline {
                     export HOOT_HOME=`pwd`
                         ./scripts/copyright/UpdateAllCopyrightHeaders.sh
                         '''
-                    }
                 }
             }
         }
         stage("Vagrant up") {
             when { expression { return params.Vagrant_up } }
             steps {
-                // NOTE: Only installs hoot build dependencies
+                // NOTE: Ubuntu only, may need more complex logic if other OS are included in pipeline
+                sh '''
+                    cp LocalConfig.pri.orig LocalConfig.pri
+                    echo "QMAKE_CXXFLAGS += -Werror" >> LocalConfig.pri
+                    sed -i s/"QMAKE_CXX=g++"/"#QMAKE_CXX=g++"/g LocalConfig.pri
+                    sed -i s/"#QMAKE_CXX=ccache g++"/"QMAKE_CXX=ccache g++"/g LocalConfig.pri
+                '''
+
                 sh "vagrant up ${params.Box} --provision-with software,hoot,build,EGD,tomcat,mapnik,hadoop --provider aws"
             }       
         }
