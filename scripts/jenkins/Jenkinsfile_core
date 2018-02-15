@@ -70,6 +70,9 @@ pipeline {
         }
     }
     post {
+        always {
+            notifySlack(currentBuild.result, "#test")
+        }
         success {
             // If all tests passed, clean everything up
             sh "vagrant destroy -f ${params.Box}"
