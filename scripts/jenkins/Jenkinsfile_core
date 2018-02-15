@@ -1,6 +1,7 @@
-pipeline {
-    library 'radiant-pipeline-library'
+#!groovy
+@Library('radiant-pipeline-library')_
 
+pipeline {
     agent any
     // Configurable parameters for users to skip steps and control pipeline behavior
     parameters {
