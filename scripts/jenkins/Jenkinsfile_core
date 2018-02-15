@@ -1,6 +1,6 @@
-@Library('radiant-pipeline')
-
 pipeline {
+    @Library('radiant-pipeline')
+    
     agent any
     // Configurable parameters for users to skip steps and control pipeline behavior
     parameters {
