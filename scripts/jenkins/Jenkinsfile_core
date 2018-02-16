@@ -19,6 +19,9 @@ pipeline {
                 // Attempt to destroy exiting VM but don't stop job if not there
                 sh "vagrant destroy -f ${params.Box} || true"
             }
+            
+            // TESTING
+            postSlack("/home/vagrant/hoot/docs", "*.xslt")
         }
         stage("Setup") {
             steps {              
