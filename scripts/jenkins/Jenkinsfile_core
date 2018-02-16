@@ -17,7 +17,7 @@ pipeline {
             when { expression { return params.Destroy_VM } }
             steps {
                 // TESTING
-                postSlack("${env.WORKSPACE}/docs", "*.xslt")
+                postSlack("${env.WORKSPACE}/docs", "*.xslt", "${env.JENKINS_BOT_TOKEN}", "#builds_hoot")
 
                 // Attempt to destroy exiting VM but don't stop job if not there
                 sh "vagrant destroy -f ${params.Box} || true"
