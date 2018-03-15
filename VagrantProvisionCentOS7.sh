@@ -210,10 +210,19 @@ fi
 
 if ! mocha --version &>/dev/null; then
     echo "### Installing mocha for plugins test..."
-    sudo npm install --silent -g mocha@3.5.3
+    sudo npm install --silent -g mocha@$MOCHA_VERSION
     # Clean up after the npm install
     sudo rm -rf ~/tmp
 fi
+
+if ! nightwatch --version &>/dev/null; then
+    echo "### Installing nightwatch for UI test..."
+    sudo npm install --silent -g nightwatch@$NIGHTWATCH_VERSION
+    # Clean up after the npm install
+    sudo rm -rf ~/tmp
+fi
+
+$HOOT_HOME/scripts/selenium-install.sh
 
 echo "### Configuring Postgres..."
 cd /tmp # Stop postgres "could not change directory to" warnings
@@ -319,6 +328,8 @@ if [ -f $HOOT_HOME/hoot-services/src/main/resources/conf/local.conf ]; then
     echo "Removing services local.conf..."
     rm -f $HOOT_HOME/hoot-services/src/main/resources/conf/local.conf
 fi
+
+
 
 # Making sure we know where we are
 cd ~

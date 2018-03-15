@@ -143,6 +143,10 @@ tagCountHistogram2.png
 uniqueHistogram.png
 test-files/cmd/current
 test-files/DcTigerRoadsHighwayExactMatchInputs.osm
+test-files/ui/nightwatch/node_modules/
+test-files/ui/nightwatch/reports/
+test-files/ui/nightwatch/package-lock.json
+test-files/ui/nightwatch/*.log
 .vagrant/
 inputFeatures.png
 docs/developer/restDocs/
